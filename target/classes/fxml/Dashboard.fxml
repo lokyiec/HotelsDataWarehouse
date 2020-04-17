@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="250.0" styleClass="stackpane" stylesheets="@stylesheet.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lokyiec.controllers.DashboardController">
+    <children>
+        <VBox prefHeight="200.0" prefWidth="100.0">
+            <children>
+                <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="80.0" prefWidth="268.0" styleClass="dash_header" stylesheets="@stylesheet.css" text="Admin Panel" textFill="WHITE">
+                    <font>
+                        <Font name="Avenir Book" size="24.0" />
+                    </font>
+                </Label>
+                <Button alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#openReservations" prefHeight="80.0" prefWidth="250.0" stylesheets="@stylesheet.css" text="Zyski z rezerwacji" textFill="WHITE">
+                    <font>
+                        <Font name="Avenir Book" size="18.0" />
+                    </font>
+                    <graphic>
+                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../img/hotel-solid.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#openServices" prefHeight="80.0" prefWidth="250.0" stylesheets="@stylesheet.css" text="Zyski z usług" textFill="WHITE">
+                    <font>
+                        <Font name="Avenir Book" size="18.0" />
+                    </font>
+                    <graphic>
+                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../img/glass-martini-alt-solid.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#openCity" prefHeight="80.0" prefWidth="250.0" stylesheets="@stylesheet.css" text="Zestawienie miast" textFill="WHITE">
+                    <font>
+                        <Font name="Avenir Book" size="18.0" />
+                    </font>
+                    <graphic>
+                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../img/city-solid.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#openServiceRanking" prefHeight="80.0" prefWidth="250.0" stylesheets="@stylesheet.css" text="Zestawienie usług" textFill="WHITE">
+                    <font>
+                        <Font name="Avenir Book" size="18.0" />
+                    </font>
+                    <graphic>
+                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../img/dice-solid.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#openServiceExploration" prefHeight="80.0" prefWidth="250.0" stylesheets="@stylesheet.css" text="Eksploruj usługi" textFill="WHITE">
+                    <font>
+                        <Font name="Avenir Book" size="18.0" />
+                    </font>
+                    <graphic>
+                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../img/database-solid.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button alignment="CENTER" layoutX="10.0" layoutY="410.0" mnemonicParsing="false" onAction="#quit" prefHeight="80.0" prefWidth="250.0" stylesheets="@stylesheet.css" text="Wyjdź" textFill="WHITE">
+                    <font>
+                        <Font name="Avenir Book" size="18.0" />
+                    </font>
+                </Button>
+            </children>
+        </VBox>
+    </children>
+</StackPane>

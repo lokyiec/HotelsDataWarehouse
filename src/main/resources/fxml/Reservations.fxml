@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <VBox prefHeight="600.0" prefWidth="650.0">
+            <children>
+                <StackPane prefHeight="84.0" prefWidth="650.0" />
+                <HBox prefHeight="500.0" prefWidth="650.0">
+                    <children>
+                        <TableView prefHeight="500.0" prefWidth="656.0">
+                            <columns>
+                                <TableColumn prefWidth="150.0" text="ZYSK" />
+                                <TableColumn prefWidth="164.0" text="C2" />
+                            </columns>
+                        </TableView>
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+    </children>
+</HBox>
