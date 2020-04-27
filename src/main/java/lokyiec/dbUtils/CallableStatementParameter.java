@@ -74,10 +74,19 @@ public class CallableStatementParameter {
     }
 
     // USŁUGI
-    public List<Usluga> widokUslug() throws SQLException {
+    public List<Usluga> widokUslug(String hotel_nazwa) throws SQLException {
         List<Usluga> arrayList = new ArrayList<>();
         Statement stmt = null;
-        String query = "SELECT uslug_nazwa FROM uslugi_hotelowe";
+        String query = "" +
+                "SELECT UH.USLUG_NAZWA, COUNT(UU.USLUG_ID) AS \"Ilosc\"\n" +
+                "FROM USLUGI_HOTELOWE UH\n" +
+                "JOIN UZYTE_USLUGI UU ON UH.USLUG_ID = UU.USLUG_ID\n" +
+                "JOIN REZERWACJE R ON UU.REZ_ID = R.REZ_ID\n" +
+                "JOIN REZERWACJE_POKOI RP ON R.REZ_ID = RP.REZ_ID\n" +
+                "JOIN POKOJE P ON RP.POK_ID = P.POK_ID\n" +
+                "JOIN HOTELE H ON P.HOTEL_ID = H.HOTEL_ID\n" +
+                "WHERE H.HOTEL_NAZWA = '" + hotel_nazwa + "'\n" +
+                "GROUP BY UH.USLUG_NAZWA;";
 
         try {
             Connection con = this.getDBConnection();
@@ -85,11 +94,12 @@ public class CallableStatementParameter {
             ResultSet rs = stmt.executeQuery(query);
             while(rs.next()) {
                 String uslug_nazwa = rs.getString("uslug_nazwa");
-                arrayList.add(new Usluga(uslug_nazwa));
+                Integer ilosc = rs.getInt("Ilosc");
+                arrayList.add(new Usluga(uslug_nazwa, ilosc));
             }
 
         } catch (SQLException e) {
-            System.out.println("Error! widokUlug");
+            System.out.println("Error! widokTopUlug");
         } finally {
             if (stmt != null)   stmt.close();
         }
@@ -127,5 +137,36 @@ public class CallableStatementParameter {
         }
         return arrayList;
     }
+
+    // MIASTA
+    public List<topCity> widokMiast(int ilosc) throws SQLException {
+        List<topCity> arrayList = new ArrayList<>();
+        Statement stmt = null;
+        String query =
+                "SELECT A.ADRES_MIASTO, COUNT(A.ADRES_MIASTO) AS \"Ilosc\"\n" +
+                        "FROM ADRESY A\n" +
+                        "JOIN GOSCIE G ON A.ADRES_ID = G.ADRES_ID\n" +
+                        "GROUP BY A.ADRES_MIASTO\n" +
+                        "ORDER BY COUNT(A.ADRES_MIASTO) DESC\n" +
+                        "LIMIT " + ilosc;
+
+        try {
+            Connection conn = this.getDBConnection();
+            stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                String adres_miasto = rs.getString("adres_miasto");
+                Integer ilosc_gosci = rs.getInt("Ilosc");
+                arrayList.add(new topCity(adres_miasto, ilosc_gosci));
+            }
+        } catch (SQLException e) {
+            System.out.println("Error topMiasta");
+        } finally {
+            if (stmt != null)   stmt.close();
+        }
+        return arrayList;
+    }
+
+
 
 }

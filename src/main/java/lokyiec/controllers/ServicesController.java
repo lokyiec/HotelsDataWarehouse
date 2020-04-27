@@ -9,7 +9,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import lokyiec.dbObjects.Hotel;
-import lokyiec.dbObjects.Usluga;
 import lokyiec.dbObjects.ZyskHotel;
 import lokyiec.dbObjects.ZyskUslug;
 import lokyiec.dbUtils.CallableStatementParameter;
