@@ -11,8 +11,7 @@ public class SQLDataImporter {
         InstanceQuery query = new InstanceQuery();
         query.setUsername(userName);
         query.setPassword(password);
-
-        // plik ustawien polaczenia z baza danych
+        
         query.setCustomPropsFile(propsFile);
 
         if (limit>0) query.setQuery(queryText + " limit "+ limit + ";");

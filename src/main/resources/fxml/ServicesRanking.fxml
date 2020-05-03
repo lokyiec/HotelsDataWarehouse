@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
 
-<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lokyiec.controllers.ServicesRankingController">
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lokyiec.controllers.ServicesRankingController">
     <children>
         <VBox prefHeight="600.0" prefWidth="650.0">
             <children>
@@ -19,13 +25,13 @@
                                     </HBox.margin>
                                 </Text>
                                 <Separator opacity="0.0" orientation="VERTICAL" prefHeight="82.0" prefWidth="20.0" />
-                                <ComboBox fx:id="comboHotele" depthTest="DISABLE" nodeOrientation="LEFT_TO_RIGHT" prefHeight="27.0" prefWidth="120.0" promptText="Wybierz">
+                                <ComboBox fx:id="comboHotele" depthTest="DISABLE" nodeOrientation="LEFT_TO_RIGHT" prefHeight="27.0" prefWidth="120.0" promptText="Wybierz" style="-fx-cursor: hand;">
                                     <opaqueInsets>
                                         <Insets />
                                     </opaqueInsets>
                                 </ComboBox>
                                 <Separator opacity="0.0" orientation="VERTICAL" prefHeight="82.0" prefWidth="20.0" />
-                                <Button mnemonicParsing="false" onAction="#pokaz" prefHeight="27.0" prefWidth="70.0" text="Pokaż" />
+                                <Button mnemonicParsing="false" onAction="#pokaz" prefHeight="27.0" prefWidth="70.0" style="-fx-cursor: hand;" text="Pokaż" />
                             </children>
                         </HBox>
                     </children>

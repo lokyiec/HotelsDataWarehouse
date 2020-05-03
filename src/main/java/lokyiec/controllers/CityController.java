@@ -4,7 +4,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -39,6 +38,7 @@ public class CityController {
     void initialize() {
         try {
             topMiast = FXCollections.observableArrayList(cspie.widokMiast(10));
+            tablica.setItems(topMiast);
         } catch (SQLException e) {
             System.out.println("Problem z wyswietleniem hoteli");
             e.printStackTrace();

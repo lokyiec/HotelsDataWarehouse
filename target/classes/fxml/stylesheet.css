@@ -20,3 +20,10 @@
 .dash_header{
     -fx-background-color: #2196f3;
 }
+.hover_border:hover {
+    -fx-background-color: #686f8f;
+    -fx-cursor: hand;
+}
+.cursor_hand{
+    -fx-cursor: hand;
+}

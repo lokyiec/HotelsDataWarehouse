@@ -12,36 +12,26 @@ import java.util.ArrayList;
 
 public class BasicTools {
 
-    //Odczytanie tablicy danych z dysku w formacie ARFF
-    public static Instances loadData(String fileName)
-            throws IOException
-    {
-        ArffLoader loader = new ArffLoader(); //Utworzenie obiektu czytajacego dane z formatu ARFF
-        loader.setFile(new File(fileName)); //Ustawienie pliku do odczytania
-        return loader.getDataSet(); //Odczytanie danych z pliku
+    public static Instances loadData(String fileName) throws IOException {
+        ArffLoader loader = new ArffLoader();
+        loader.setFile(new File(fileName));
+        return loader.getDataSet();
     }
 
-    //Importowanie danych z formatu CSV do formatu ARFF
-    public static void importCSVtoARFF(String fileNameCSV,String fileNameARFF)
-            throws IOException
-    {
-        CSVLoader loader = new CSVLoader(); //Utworzenie obiektu czytajacego dane z formatu CSV
-        loader.setSource(new File(fileNameCSV)); //Ustawienie pliku do odczytania
-        Instances data = loader.getDataSet(); //Odczytanie danych z pliku
-        saveData(data,fileNameARFF); //Zapis tablicy do pliku w romacie ARFF
+    public static void importCSVtoARFF(String fileNameCSV,String fileNameARFF) throws IOException {
+        CSVLoader loader = new CSVLoader();
+        loader.setSource(new File(fileNameCSV));
+        Instances data = loader.getDataSet();
+        saveData(data,fileNameARFF);
     }
 
-    //Zapis zbioru danych do formatu ARFF
-    public static void saveData(Instances data,String fileName)
-            throws IOException
-    {
-        ArffSaver saver = new ArffSaver(); //Utworzenie obiektu zapisujacego dane
-        saver.setFile(new File(fileName)); //Ustawienie nazwy pliku do zapisu
+    public static void saveData(Instances data,String fileName) throws IOException {
+        ArffSaver saver = new ArffSaver();
+        saver.setFile(new File(fileName));
         saver.setInstances(data);
-        saver.writeBatch(); //Zapis do pliku
+        saver.writeBatch();
     }
 
-    // Przygotowanie danych do asocjacji algorytmem Apriori
     static public void processToApriori(Instances data) throws Exception {
         String username = "postgres";
         String password = "changeme";
@@ -76,7 +66,7 @@ public class BasicTools {
             dataOut.add(s);
 
         }
-        String filename = "./src/data/from_postgresql.arff";
+        String filename = "./src/main/java/lokyiec/data/Apriori.arff";
         PrintWriter out = new PrintWriter(filename);
         out.println("@relation Uslugi");
         out.println();

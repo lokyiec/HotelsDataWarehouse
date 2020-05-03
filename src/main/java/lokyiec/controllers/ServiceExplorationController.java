@@ -16,7 +16,6 @@ import weka.associations.AssociationRules;
 import weka.associations.Item;
 import weka.core.Instances;
 import weka.core.Utils;
-
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -60,14 +59,14 @@ public class ServiceExplorationController {
                             "ORDER BY UU.REZ_ID";
 
             Instances data = SQLDataImporter.getDataSetFromPostgreSQL(username, password, query, 0);
-            String fileName = "./src/data/from_postgresql.arff"; //Lokalizacja pliku z danymi
+            String fileName = "./src/main/java/lokyiec/data/Apriori.arff"; //Lokalizacja pliku z danymi
             BasicTools.saveData(data, fileName); //Zapis tablicy do pliku w fromacie ARFF
             BasicTools.processToApriori(data);
             data = BasicTools.loadData(fileName);
             data.setClassIndex(data.numAttributes() - 1);
 
             String set = "-N " + minRules.getText() + " -C " + minMetric.getText() + " -M " + minSupp;
-            String[] options = Utils.splitOptions("-N 10 -C 0.2 -M 0.01");
+            String[] options = Utils.splitOptions("-N 10 -C 0.2 -M 0.05");
             Apriori apriori = new Apriori();
             apriori.setOptions(options);
             apriori.buildAssociations(data);
@@ -95,7 +94,8 @@ public class ServiceExplorationController {
                             "ORDER BY UU.REZ_ID";
 
             Instances data = SQLDataImporter.getDataSetFromPostgreSQL(username, password, query, 0);
-            String fileName = "./src/data/from_postgresql.arff"; //Lokalizacja pliku z danymi
+            String fileName = "./src/main/java/lokyiec/data/Apriori.arff"; //Lokalizacja pliku z danymi
+
             BasicTools.saveData(data, fileName); //Zapis tablicy do pliku w fromacie ARFF
             BasicTools.processToApriori(data);
             data = BasicTools.loadData(fileName);
