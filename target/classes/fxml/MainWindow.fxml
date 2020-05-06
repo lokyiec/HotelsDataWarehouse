@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
 
-<BorderPane fx:id="mainWindowBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lokyiec.controllers.MainWindowController">
+<BorderPane fx:id="mainWindowBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lokyiec.controllers.MainWindowController">
     <left>
         <VBox prefHeight="600.0" prefWidth="250.0" BorderPane.alignment="CENTER">
             <fx:include fx:id="dashboard" source="Dashboard.fxml" />
@@ -13,8 +11,12 @@
     </left>
     <center>
         <Pane prefHeight="600.0" prefWidth="650.0" BorderPane.alignment="CENTER">
-            <children>
-                <Label layoutX="310.0" layoutY="257.0" text="ADMIN" />
-            </children></Pane>
+         <children>
+            <ImageView fitHeight="451.0" fitWidth="507.0" layoutX="72.0" layoutY="75.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/hotels.png" />
+               </image>
+            </ImageView>
+         </children></Pane>
     </center>
 </BorderPane>
