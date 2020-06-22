@@ -15,17 +15,20 @@ import lokyiec.dbUtils.CallableStatementParameter;
 
 public class ReservationsController {
     CallableStatementParameter cspie = new CallableStatementParameter();
-    private ObservableList<Hotel> listaHoteli;
+    private ObservableList<String> listaHoteli;
     private ObservableList<ZyskHotel> listaZysku;
 
     @FXML
-    private ComboBox<Hotel> comboHotele;
+    private ComboBox<String> comboHotele;
 
     @FXML
     private TableView<ZyskHotel> tablica;
 
     @FXML
     private TableColumn<ZyskHotel, Integer> Tmiesiac;
+
+    @FXML
+    private TableColumn<ZyskHotel, String> Tnazwa;
 
     @FXML
     private TableColumn<ZyskHotel, Integer> Tzysk;
@@ -44,8 +47,10 @@ public class ReservationsController {
             e.printStackTrace();
         }
         comboHotele.setItems(listaHoteli);
+        comboHotele.getItems().add("Wszystkie");
 
         Tmiesiac.setCellValueFactory(new PropertyValueFactory<>("Miesiac"));
+        Tnazwa.setCellValueFactory(new PropertyValueFactory<>("Nazwa"));
         Tzysk.setCellValueFactory(new PropertyValueFactory<>("Zysk"));
     }
 

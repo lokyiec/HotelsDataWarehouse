@@ -21,8 +21,8 @@ public class CallableStatementParameter {
     }
 
     // REZERWACJE
-    public List<Hotel> widokHoteli() throws SQLException {
-        List<Hotel> arrayList = new ArrayList<>();
+    public List<String> widokHoteli() throws SQLException {
+        List<String> arrayList = new ArrayList<>();
         Statement stmt = null;
         String query = "SELECT hotel_nazwa FROM hotele";
 
@@ -32,7 +32,7 @@ public class CallableStatementParameter {
             ResultSet rs = stmt.executeQuery(query);
             while(rs.next()) {
                 String hotel_nazwa = rs.getString("hotel_nazwa");
-                arrayList.add(new Hotel(hotel_nazwa));
+                arrayList.add(hotel_nazwa);
             }
 
         } catch (SQLException e) {
@@ -42,28 +42,44 @@ public class CallableStatementParameter {
         }
         return arrayList;
     }
-
     public List<ZyskHotel> widokZyskuHotelu(String hotel_nazwa) throws SQLException {
         List<ZyskHotel> arrayList = new ArrayList<>();
         Statement stmt = null;
-        String query =
-                "SELECT date_part('month', r.rez_wymeld) AS \"Miesiac\", SUM(r.rez_koszt) AS \"Zysk\"\n" +
-                        "FROM REZERWACJE R\n" +
-                        "JOIN REZERWACJE_POKOI RP ON R.REZ_ID = RP.REZ_ID\n" +
-                        "JOIN POKOJE P ON P.POK_ID = RP.POK_ID\n" +
-                        "JOIN HOTELE H ON H.HOTEL_ID = P.HOTEL_ID\n" +
-                        "WHERE H.HOTEL_NAZWA = '" + hotel_nazwa + "'\n" +
-                        "GROUP BY GROUPING SETS ((date_part('month', r.rez_wymeld)))\n" +
-                        "ORDER BY date_part('month', r.rez_wymeld);";
+        String query = "";
+        if (hotel_nazwa.equals("Wszystkie")) {
+            query =
+                    "SELECT H.HOTEL_NAZWA AS \"Nazwa\", date_part('month', r.rez_wymeld) AS \"Miesiac\", SUM(r.rez_koszt) AS \"Zysk\"\n" +
+                            "FROM USLUGI_HOTELOWE UH\n" +
+                            "JOIN UZYTE_USLUGI UU ON UH.USLUG_ID = UU.USLUG_ID\n" +
+                            "JOIN REZERWACJE R ON R.REZ_ID = UU.REZ_ID\n" +
+                            "JOIN REZERWACJE_POKOI RP ON RP.REZ_ID = R.REZ_ID\n" +
+                            "JOIN POKOJE P ON RP.POK_ID = P.POK_ID\n" +
+                            "JOIN HOTELE H ON H.HOTEL_ID = P.HOTEL_ID\n" +
+                            "GROUP BY GROUPING SETS ((H.HOTEL_NAZWA, date_part('month', r.rez_wymeld)), H.HOTEL_NAZWA)\n" +
+                            "ORDER BY date_part('month', r.rez_wymeld)";
+        } else {
+            query =
+                    "SELECT H.HOTEL_NAZWA AS \"Nazwa\", date_part('month', r.rez_wymeld) AS \"Miesiac\", SUM(r.rez_koszt) AS \"Zysk\"\n" +
+                            "FROM USLUGI_HOTELOWE UH\n" +
+                            "JOIN UZYTE_USLUGI UU ON UH.USLUG_ID = UU.USLUG_ID\n" +
+                            "JOIN REZERWACJE R ON R.REZ_ID = UU.REZ_ID\n" +
+                            "JOIN REZERWACJE_POKOI RP ON RP.REZ_ID = R.REZ_ID\n" +
+                            "JOIN POKOJE P ON RP.POK_ID = P.POK_ID\n" +
+                            "JOIN HOTELE H ON H.HOTEL_ID = P.HOTEL_ID\n" +
+                            "WHERE H.HOTEL_NAZWA = '" + hotel_nazwa + "'\n" +
+                            "GROUP BY GROUPING SETS ((H.HOTEL_NAZWA, date_part('month', r.rez_wymeld)), H.HOTEL_NAZWA)\n" +
+                            "ORDER BY date_part('month', r.rez_wymeld)";
+        }
 
         try {
             Connection conn = this.getDBConnection();
             stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(query);
             while (rs.next()) {
-                Integer miesiac = rs.getInt("Miesiac");
+                String miesiac = rs.getString("Miesiac");
+                String nazwa = rs.getString("Nazwa");
                 Integer zysk = rs.getInt("Zysk");
-                arrayList.add(new ZyskHotel(miesiac, zysk));
+                arrayList.add(new ZyskHotel(miesiac, nazwa, zysk));
             }
         } catch (SQLException e) {
             System.out.println("Error ZyskHotelu");
@@ -74,28 +90,73 @@ public class CallableStatementParameter {
     }
 
     // USŁUGI
-    public List<Usluga> widokUslug(String hotel_nazwa) throws SQLException {
-        List<Usluga> arrayList = new ArrayList<>();
+    public List<String> widokListyUslug() throws SQLException {
+        List<String> arrayList = new ArrayList<>();
         Statement stmt = null;
-        String query = "" +
-                "SELECT UH.USLUG_NAZWA, COUNT(UU.USLUG_ID) AS \"Ilosc\"\n" +
-                "FROM USLUGI_HOTELOWE UH\n" +
-                "JOIN UZYTE_USLUGI UU ON UH.USLUG_ID = UU.USLUG_ID\n" +
-                "JOIN REZERWACJE R ON UU.REZ_ID = R.REZ_ID\n" +
-                "JOIN REZERWACJE_POKOI RP ON R.REZ_ID = RP.REZ_ID\n" +
-                "JOIN POKOJE P ON RP.POK_ID = P.POK_ID\n" +
-                "JOIN HOTELE H ON P.HOTEL_ID = H.HOTEL_ID\n" +
-                "WHERE H.HOTEL_NAZWA = '" + hotel_nazwa + "'\n" +
-                "GROUP BY UH.USLUG_NAZWA;";
+        String query = "SELECT uslug_nazwa FROM uslugi_hotelowe";
 
         try {
             Connection con = this.getDBConnection();
             stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(query);
             while(rs.next()) {
-                String uslug_nazwa = rs.getString("uslug_nazwa");
-                Integer ilosc = rs.getInt("Ilosc");
-                arrayList.add(new Usluga(uslug_nazwa, ilosc));
+                String usluga_nazwa = rs.getString("uslug_nazwa");
+                arrayList.add(usluga_nazwa);
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error! widokUslug");
+        } finally {
+            if (stmt != null)   stmt.close();
+        }
+        return arrayList;
+    }
+
+
+    public List<topUslug> widokUslug(String uslug_nazwa) throws SQLException {
+        List<topUslug> arrayList = new ArrayList<>();
+        Statement stmt = null;
+        String query = "";
+        if (uslug_nazwa.equals("Wszystkie")) {
+            query =
+                    "SELECT uslug_nazwa,\n" +
+                            "\tSUM(CASE WHEN hotel_nazwa='Mercury' THEN \"count\" END) AS \"Mercury\",\n" +
+                            "\tSUM(CASE WHEN hotel_nazwa='Venus' THEN \"count\" END) AS \"Venus\",\n" +
+                            "\tSUM(CASE WHEN hotel_nazwa='Mars' THEN \"count\" END) AS \"Mars\",\n" +
+                            "\tSUM(CASE WHEN hotel_nazwa='Jupiter' THEN \"count\" END) AS \"Jupiter\",\n" +
+                            "\tSUM(CASE WHEN hotel_nazwa='Saturn' THEN \"count\" END) AS \"Saturn\",\n" +
+                            "\tSUM(\"count\") AS \"Razem\"\n" +
+                            "FROM MTRANS \n" +
+                            "GROUP BY uslug_nazwa\n" +
+                            "ORDER BY \"Razem\" DESC;";
+        } else {
+            query =
+                    "SELECT uslug_nazwa,\n" +
+                            "\tSUM(CASE WHEN hotel_nazwa='Mercury' THEN \"count\" END) AS \"Mercury\",\n" +
+                            "\tSUM(CASE WHEN hotel_nazwa='Venus' THEN \"count\" END) AS \"Venus\",\n" +
+                            "\tSUM(CASE WHEN hotel_nazwa='Mars' THEN \"count\" END) AS \"Mars\",\n" +
+                            "\tSUM(CASE WHEN hotel_nazwa='Jupiter' THEN \"count\" END) AS \"Jupiter\",\n" +
+                            "\tSUM(CASE WHEN hotel_nazwa='Saturn' THEN \"count\" END) AS \"Saturn\",\n" +
+                            "\tSUM(\"count\") AS \"Razem\"\n" +
+                            "FROM MTRANS \n" +
+                            "WHERE uslug_nazwa = '" + uslug_nazwa + "'\n" +
+                            "GROUP BY uslug_nazwa\n" +
+                            "ORDER BY \"Razem\" DESC;";
+        }
+
+        try {
+            Connection con = this.getDBConnection();
+            stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            while(rs.next()) {
+                String nazwa = rs.getString("uslug_nazwa");
+                Integer mercury = rs.getInt("Mercury");
+                Integer venus = rs.getInt("Venus");
+                Integer mars = rs.getInt("Mars");
+                Integer jupiter = rs.getInt("Jupiter");
+                Integer saturn = rs.getInt("Saturn");
+                Integer razem = rs.getInt("Razem");
+                arrayList.add(new topUslug(nazwa, mercury, venus, mars, jupiter, saturn, razem));
             }
 
         } catch (SQLException e) {
@@ -106,37 +167,60 @@ public class CallableStatementParameter {
         return arrayList;
     }
 
-    public List<ZyskUslug> widokZyskuUslug(String hotel_nazwa) throws SQLException {
-        List<ZyskUslug> arrayList = new ArrayList<>();
+    public List<topUslug> widokZyskuUslug(String uslug_nazwa) throws SQLException {
+        List<topUslug> arrayList = new ArrayList<>();
         Statement stmt = null;
-        String query =
-                "SELECT date_part('month', r.rez_wymeld) AS \"Miesiac\", SUM(r.rez_koszt) AS \"Zysk\"\n" +
-                        "FROM USLUGI_HOTELOWE UH\n" +
-                        "JOIN UZYTE_USLUGI UU ON UH.USLUG_ID = UU.USLUG_ID\n" +
-                        "JOIN REZERWACJE R ON R.REZ_ID = UU.REZ_ID\n" +
-                        "JOIN REZERWACJE_POKOI RP ON RP.REZ_ID = R.REZ_ID\n" +
-                        "JOIN POKOJE P ON RP.POK_ID = P.POK_ID\n" +
-                        "JOIN HOTELE H ON H.HOTEL_ID = P.HOTEL_ID\n" +
-                        "WHERE H.HOTEL_NAZWA = '" + hotel_nazwa + "'\n" +
-                        "GROUP BY GROUPING SETS ((date_part('month', r.rez_wymeld)))\n" +
-                        "ORDER BY date_part('month', r.rez_wymeld);";
+        String query = "";
+        if (uslug_nazwa.equals("Wszystkie")) {
+            query =
+                    "SELECT uslug_nazwa,\n" +
+                            "\tSUM(CASE WHEN hotel_nazwa='Mercury' THEN \"sum\" END) AS \"Mercury\",\n" +
+                            "\tSUM(CASE WHEN hotel_nazwa='Venus' THEN \"sum\" END) AS \"Venus\",\n" +
+                            "\tSUM(CASE WHEN hotel_nazwa='Mars' THEN \"sum\" END) AS \"Mars\",\n" +
+                            "\tSUM(CASE WHEN hotel_nazwa='Jupiter' THEN \"sum\" END) AS \"Jupiter\",\n" +
+                            "\tSUM(CASE WHEN hotel_nazwa='Saturn' THEN \"sum\" END) AS \"Saturn\",\n" +
+                            "\tSUM(\"sum\") AS \"Razem\"\n" +
+                            "FROM MTRANS2 \n" +
+                            "GROUP BY uslug_nazwa\n" +
+                            "ORDER BY \"Razem\" DESC;";
+        } else {
+            query =
+                    "SELECT uslug_nazwa,\n" +
+                            "\tSUM(CASE WHEN hotel_nazwa='Mercury' THEN \"sum\" END) AS \"Mercury\",\n" +
+                            "\tSUM(CASE WHEN hotel_nazwa='Venus' THEN \"sum\" END) AS \"Venus\",\n" +
+                            "\tSUM(CASE WHEN hotel_nazwa='Mars' THEN \"sum\" END) AS \"Mars\",\n" +
+                            "\tSUM(CASE WHEN hotel_nazwa='Jupiter' THEN \"sum\" END) AS \"Jupiter\",\n" +
+                            "\tSUM(CASE WHEN hotel_nazwa='Saturn' THEN \"sum\" END) AS \"Saturn\",\n" +
+                            "\tSUM(\"sum\") AS \"Razem\"\n" +
+                            "FROM MTRANS2 \n" +
+                            "WHERE uslug_nazwa = '" + uslug_nazwa + "'\n" +
+                            "GROUP BY uslug_nazwa\n" +
+                            "ORDER BY \"Razem\" DESC;";
+        }
 
         try {
-            Connection conn = this.getDBConnection();
-            stmt = conn.createStatement();
+            Connection con = this.getDBConnection();
+            stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(query);
-            while (rs.next()) {
-                Integer miesiac = rs.getInt("Miesiac");
-                Integer zysk = rs.getInt("Zysk");
-                arrayList.add(new ZyskUslug(miesiac, zysk));
+            while(rs.next()) {
+                String nazwa = rs.getString("uslug_nazwa");
+                Integer mercury = rs.getInt("Mercury");
+                Integer venus = rs.getInt("Venus");
+                Integer mars = rs.getInt("Mars");
+                Integer jupiter = rs.getInt("Jupiter");
+                Integer saturn = rs.getInt("Saturn");
+                Integer razem = rs.getInt("Razem");
+                arrayList.add(new topUslug(nazwa, mercury, venus, mars, jupiter, saturn, razem));
             }
+
         } catch (SQLException e) {
-            System.out.println("Error ZyskHotelu");
+            System.out.println("Error! widokTopUlug");
         } finally {
-            if (stmt != null) stmt.close();
+            if (stmt != null)   stmt.close();
         }
         return arrayList;
     }
+
 
     // MIASTA
     public List<topCity> widokMiast(int ilosc) throws SQLException {

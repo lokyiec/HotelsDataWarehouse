@@ -9,28 +9,43 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import lokyiec.dbObjects.Hotel;
-import lokyiec.dbObjects.ZyskHotel;
-import lokyiec.dbObjects.ZyskUslug;
+import lokyiec.dbObjects.Usluga;
+import lokyiec.dbObjects.topUslug;
 import lokyiec.dbUtils.CallableStatementParameter;
 
 import java.sql.SQLException;
 
 public class ServicesController {
     CallableStatementParameter cspie = new CallableStatementParameter();
-    private ObservableList<Hotel> listaHoteli;
-    private ObservableList<ZyskUslug> listaZysku;
+    private ObservableList<topUslug> zyskUslug;
+    private ObservableList<String> listaUslug;
 
     @FXML
-    private ComboBox<Hotel> comboHotele;
+    private ComboBox<String> comboUslugi;
 
     @FXML
-    private TableView<ZyskUslug> tablica;
+    private TableView<topUslug> tablica;
 
     @FXML
-    private TableColumn<ZyskUslug, Integer> Tmiesiac;
+    private TableColumn<topUslug, String> Tusluga;
 
     @FXML
-    private TableColumn<ZyskUslug, Integer> Tzysk;
+    private TableColumn<topUslug, Integer> Tmercury;
+
+    @FXML
+    private TableColumn<topUslug, Integer> Tvenus;
+
+    @FXML
+    private TableColumn<topUslug, Integer> Tmars;
+
+    @FXML
+    private TableColumn<topUslug, Integer> Tjupiter;
+
+    @FXML
+    private TableColumn<topUslug, Integer> Tsaturn;
+
+    @FXML
+    private TableColumn<topUslug, Integer> Trazem;
 
     @FXML
     void pokaz(ActionEvent event) {
@@ -40,25 +55,32 @@ public class ServicesController {
     @FXML
     void initialize() {
         try {
-            listaHoteli = FXCollections.observableArrayList(cspie.widokHoteli());
+            listaUslug = FXCollections.observableArrayList(cspie.widokListyUslug());
+            zyskUslug = FXCollections.observableArrayList(cspie.widokZyskuUslug("Wszystkie"));
         } catch (SQLException e) {
             System.out.println("Problem z wyswietleniem hoteli");
             e.printStackTrace();
         }
-        comboHotele.setItems(listaHoteli);
+        comboUslugi.setItems(listaUslug);
+        comboUslugi.getItems().add("Wszystkie");
 
-        Tmiesiac.setCellValueFactory(new PropertyValueFactory<>("Miesiac"));
-        Tzysk.setCellValueFactory(new PropertyValueFactory<>("Zysk"));
+        Tusluga.setCellValueFactory(new PropertyValueFactory<>("uslug_nazwa"));
+        Tmercury.setCellValueFactory(new PropertyValueFactory<>("mercury"));
+        Tvenus.setCellValueFactory(new PropertyValueFactory<>("venus"));
+        Tmars.setCellValueFactory(new PropertyValueFactory<>("mars"));
+        Tjupiter.setCellValueFactory(new PropertyValueFactory<>("jupiter"));
+        Tsaturn.setCellValueFactory(new PropertyValueFactory<>("saturn"));
+        Trazem.setCellValueFactory(new PropertyValueFactory<>("razem"));
+        tablica.setItems(zyskUslug);
     }
 
     void przeladuj() {
         try {
-            listaZysku = FXCollections.observableArrayList(cspie.widokZyskuUslug(comboHotele.getSelectionModel().getSelectedItem().toString()));
+            zyskUslug = FXCollections.observableArrayList(cspie.widokZyskuUslug(comboUslugi.getValue()));
         } catch (SQLException e) {
             System.out.println("Problem z wyswietleniem hoteli");
             e.printStackTrace();
         }
-        tablica.setItems(listaZysku);
+        tablica.setItems(zyskUslug);
     }
-
 }

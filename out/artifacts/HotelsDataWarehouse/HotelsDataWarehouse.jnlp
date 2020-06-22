@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<jnlp spec="1.0" xmlns:jfx="http://javafx.com" href="HotelsDataWarehouse.jnlp">
+  <information>
+    <title>HotelsDataWarehouse</title>
+    <vendor>Unknown</vendor>
+    <description>HotelsDataWarehouse</description>
+    <offline-allowed/>
+  </information>
+  <resources>
+    <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
+    <jar href="FastInfoset-1.2.16.jar" size="317195" download="eager" />
+    <jar href="HotelsDataWarehouse.jar" size="173770" download="eager" />
+    <jar href="arpack_combined_all-0.1.jar" size="1194003" download="eager" />
+    <jar href="bounce-0.18.jar" size="208593" download="eager" />
+    <jar href="core-1.1.jar" size="164386" download="eager" />
+    <jar href="istack-commons-runtime-3.0.8.jar" size="27156" download="eager" />
+    <jar href="jakarta.activation-api-1.2.1.jar" size="44399" download="eager" />
+    <jar href="jakarta.xml.bind-api-2.3.2.jar" size="115498" download="eager" />
+    <jar href="java-cup-11b-20160615.jar" size="124262" download="eager" />
+    <jar href="java-cup-runtime-11b-20160615.jar" size="33308" download="eager" />
+    <jar href="jaxb-runtime-2.3.2.jar" size="1013367" download="eager" />
+    <jar href="jclipboardhelper-0.1.0.jar" size="9572" download="eager" />
+    <jar href="jfilechooser-bookmarks-0.1.6.jar" size="48619" download="eager" />
+    <jar href="jniloader-1.1.jar" size="8685" download="eager" />
+    <jar href="mtj-1.0.4.jar" size="268984" download="eager" />
+    <jar href="native_ref-java-1.1.jar" size="54461" download="eager" />
+    <jar href="native_system-java-1.1.jar" size="54509" download="eager" />
+    <jar href="netlib-java-1.1.jar" size="94423" download="eager" />
+    <jar href="netlib-native_ref-linux-armhf-1.1-natives.jar" size="1208080" download="eager" />
+    <jar href="netlib-native_ref-linux-i686-1.1-natives.jar" size="1489507" download="eager" />
+    <jar href="netlib-native_ref-linux-x86_64-1.1-natives.jar" size="1749371" download="eager" />
+    <jar href="netlib-native_ref-osx-x86_64-1.1-natives.jar" size="1839499" download="eager" />
+    <jar href="netlib-native_ref-win-i686-1.1-natives.jar" size="1826785" download="eager" />
+    <jar href="netlib-native_ref-win-x86_64-1.1-natives.jar" size="2305169" download="eager" />
+    <jar href="netlib-native_system-linux-armhf-1.1-natives.jar" size="310891" download="eager" />
+    <jar href="netlib-native_system-linux-i686-1.1-natives.jar" size="435365" download="eager" />
+    <jar href="netlib-native_system-linux-x86_64-1.1-natives.jar" size="458605" download="eager" />
+    <jar href="netlib-native_system-osx-x86_64-1.1-natives.jar" size="553993" download="eager" />
+    <jar href="netlib-native_system-win-i686-1.1-natives.jar" size="561459" download="eager" />
+    <jar href="netlib-native_system-win-x86_64-1.1-natives.jar" size="637428" download="eager" />
+    <jar href="postgresql-42.2.12.jar" size="930498" download="eager" />
+    <jar href="stax-ex-1.8.1.jar" size="38099" download="eager" />
+    <jar href="txw2-2.3.2.jar" size="72080" download="eager" />
+    <jar href="weka-stable-3.8.4.jar" size="9290594" download="eager" />
+  </resources>
+  <jfx:javafx-desc  width="600" height="400" main-class="com.lokyiec.Launcher"  name="HotelsDataWarehouse" />
+  <update check="background"/>
+</jnlp>

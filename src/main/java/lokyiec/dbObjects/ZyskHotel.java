@@ -1,24 +1,34 @@
 package lokyiec.dbObjects;
 
 public class ZyskHotel {
-    int miesiac;
+    String miesiac;
+    String nazwa;
     int zysk;
 
-    public ZyskHotel(int miesiac, int zysk) {
+    public ZyskHotel(String miesiac, String nazwa, int zysk) {
         this.miesiac = miesiac;
+        this.nazwa = nazwa;
         this.zysk = zysk;
     }
 
-    public int getMiesiac() {
+    public String getMiesiac() {
         return miesiac;
+    }
+
+    public String getNazwa() {
+        return nazwa;
     }
 
     public int getZysk() {
         return zysk;
     }
 
-    public void setMiesiac(int miesiac) {
+    public void setMiesiac(String miesiac) {
         this.miesiac = miesiac;
+    }
+
+    public void setNazwa(String nazwa) {
+        this.nazwa = nazwa;
     }
 
     public void setZysk(int zysk) {
