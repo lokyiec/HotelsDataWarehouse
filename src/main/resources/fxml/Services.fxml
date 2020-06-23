@@ -13,13 +13,13 @@
                     <children>
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                             <children>
-                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Usluga">
+                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Hotel:">
                                     <HBox.margin>
                                         <Insets />
                                     </HBox.margin>
                                 </Text>
                                 <Separator opacity="0.0" orientation="VERTICAL" prefHeight="82.0" prefWidth="20.0" />
-                                <ComboBox fx:id="comboUslugi" depthTest="DISABLE" nodeOrientation="LEFT_TO_RIGHT" prefHeight="27.0" prefWidth="120.0" promptText="Wybierz" style="-fx-cursor: hand;">
+                                <ComboBox fx:id="comboHotele" depthTest="DISABLE" nodeOrientation="LEFT_TO_RIGHT" prefHeight="27.0" prefWidth="120.0" promptText="Wybierz" style="-fx-cursor: hand;">
                                     <opaqueInsets>
                                         <Insets />
                                     </opaqueInsets>
@@ -34,13 +34,9 @@
                     <children>
                         <TableView fx:id="tablica" prefHeight="443.0" prefWidth="650.0">
                             <columns>
-                                <TableColumn fx:id="Tusluga" prefWidth="169.0" text="Usługa" />
-                                <TableColumn fx:id="Tmercury" prefWidth="83.0" text="Mercury" />
-                                <TableColumn fx:id="Tvenus" prefWidth="74.0" text="Venus" />
-                                <TableColumn fx:id="Tmars" prefWidth="77.0" text="Mars" />
-                                <TableColumn fx:id="Tjupiter" text="Jupiter" />
-                                <TableColumn fx:id="Tsaturn" text="Saturn" />
-                                <TableColumn fx:id="Trazem" prefWidth="85.0" text="Razem" />
+                                <TableColumn fx:id="Tmiesiac" prefWidth="224.0" text="Miesiąc" />
+                                <TableColumn fx:id="Tnazwa" prefWidth="209.0" text="Nazwa" />
+                                <TableColumn fx:id="Tzysk" prefWidth="216.0" text="Zysk" />
                             </columns>
                         </TableView>
                     </children>

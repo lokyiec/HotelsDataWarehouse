@@ -4,48 +4,34 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import lokyiec.dbObjects.Hotel;
-import lokyiec.dbObjects.Usluga;
-import lokyiec.dbObjects.topUslug;
-import lokyiec.dbUtils.CallableStatementParameter;
-
+import javafx.scene.text.Text;
 import java.sql.SQLException;
+import java.util.Optional;
+import lokyiec.dbObjects.Hotel;
+import lokyiec.dbObjects.ZyskHotel;
+import lokyiec.dbUtils.CallableStatementParameter;
 
 public class ServicesRankingController {
     CallableStatementParameter cspie = new CallableStatementParameter();
-    private ObservableList<topUslug> topUslug;
-    private ObservableList<String> listaUslug;
+    private ObservableList<String> listaHoteli;
+    private ObservableList<ZyskHotel> listaZysku;
 
     @FXML
-    private ComboBox<String> comboUslugi;
+    private ComboBox<String> comboHotele;
 
     @FXML
-    private TableView<topUslug> tablica;
+    private TableView<ZyskHotel> tablica;
 
     @FXML
-    private TableColumn<topUslug, String> Tusluga;
+    private TableColumn<ZyskHotel, Integer> Tmiesiac;
 
     @FXML
-    private TableColumn<topUslug, Integer> Tmercury;
+    private TableColumn<ZyskHotel, String> Tnazwa;
 
     @FXML
-    private TableColumn<topUslug, Integer> Tvenus;
-
-    @FXML
-    private TableColumn<topUslug, Integer> Tmars;
-
-    @FXML
-    private TableColumn<topUslug, Integer> Tjupiter;
-
-    @FXML
-    private TableColumn<topUslug, Integer> Tsaturn;
-
-    @FXML
-    private TableColumn<topUslug, Integer> Trazem;
+    private TableColumn<ZyskHotel, Integer> Tzysk;
 
     @FXML
     void pokaz(ActionEvent event) {
@@ -55,32 +41,28 @@ public class ServicesRankingController {
     @FXML
     void initialize() {
         try {
-            listaUslug = FXCollections.observableArrayList(cspie.widokListyUslug());
-            topUslug = FXCollections.observableArrayList(cspie.widokUslug("Wszystkie"));
+            listaHoteli = FXCollections.observableArrayList(cspie.widokHoteli());
         } catch (SQLException e) {
             System.out.println("Problem z wyswietleniem hoteli");
             e.printStackTrace();
         }
-        comboUslugi.setItems(listaUslug);
-        comboUslugi.getItems().add("Wszystkie");
+        comboHotele.setItems(listaHoteli);
+        comboHotele.getItems().add("Wszystkie");
 
-        Tusluga.setCellValueFactory(new PropertyValueFactory<>("uslug_nazwa"));
-        Tmercury.setCellValueFactory(new PropertyValueFactory<>("mercury"));
-        Tvenus.setCellValueFactory(new PropertyValueFactory<>("venus"));
-        Tmars.setCellValueFactory(new PropertyValueFactory<>("mars"));
-        Tjupiter.setCellValueFactory(new PropertyValueFactory<>("jupiter"));
-        Tsaturn.setCellValueFactory(new PropertyValueFactory<>("saturn"));
-        Trazem.setCellValueFactory(new PropertyValueFactory<>("razem"));
-        tablica.setItems(topUslug);
+        Tmiesiac.setCellValueFactory(new PropertyValueFactory<>("Miesiac"));
+        Tnazwa.setCellValueFactory(new PropertyValueFactory<>("Nazwa"));
+        Tzysk.setCellValueFactory(new PropertyValueFactory<>("Zysk"));
     }
 
     void przeladuj() {
         try {
-            topUslug = FXCollections.observableArrayList(cspie.widokUslug(comboUslugi.getValue()));
+            listaZysku = FXCollections.observableArrayList(cspie.widokUslug(comboHotele.getSelectionModel().getSelectedItem().toString()));
         } catch (SQLException e) {
             System.out.println("Problem z wyswietleniem hoteli");
             e.printStackTrace();
         }
-        tablica.setItems(topUslug);
+        tablica.setItems(listaZysku);
     }
+
 }
+
